@@ -5,7 +5,7 @@
 }
 
 .background {
-    height: 100vh;
+    height: 100%;
     padding-top: 1px;
         background: linear-gradient(270deg, #0ed5a2, #d40ed5);
         background-size: 400% 400%;
@@ -119,4 +119,20 @@
 }
 #history{
     background-color: red;
+}
+
+.historial > table {
+    font-family: arial, sans-serif !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+  
+.historial > table > td, .historial > table > th {
+border: 1px solid #dddddd ;
+text-align: left ;
+padding: 8px ;
+}
+
+.historial > tr:nth-child(even) {
+background-color: #dddddd ;
 }

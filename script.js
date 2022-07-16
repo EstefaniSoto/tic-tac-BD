@@ -1,6 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
     const tiles = Array.from(document.querySelectorAll('.tile'));
     const playerDisplay = document.querySelector('.display-player');
+    let tableRows = document.getElementById("recordRows");
     const resetButton = document.querySelector('#reset');
     const announcer = document.querySelector('.announcer');
     const RecordsURL = "http://localhost:8080/api/records";
@@ -80,7 +81,26 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
         fetch(RecordsURL, params).then(async (response) => {
-            console.table(await response.json());
+            const records = await response.json();
+            let htmlToPresent = ``;
+
+            for(let record of records){
+                htmlToPresent += `<tr>
+                <td>${record.player1}</td>
+                <td>${record.player2}</td>
+                <td>${record.winner}</td>
+                </tr>`
+            }
+
+            tableRows.innerHTML = `<table>
+            <tr>
+              <th>Jugador 1</th>
+              <th>Jugador 2</th>
+              <th>Ganador</th>
+            </tr>
+            ${htmlToPresent}
+          </table>`; ;
+
             return response.json();
         }).catch((err)=>{
             console.log(err);
@@ -145,8 +165,18 @@ window.addEventListener('DOMContentLoaded', () => {
             tile.classList.remove('playerO');
         });
     }
+
+    getAllRecords();
+
     tiles.forEach( (tile, index) => {
         tile.addEventListener('click', () => userAction(tile, index));
     });
+
+    // historyButton.addEventListener("click", () => {
+
+    //     tableRows.style.display = tableRows.style.display == "none" ? "block" : "none" ;
+
+    // });
+
     resetButton.addEventListener('click', resetBoard);
 });
