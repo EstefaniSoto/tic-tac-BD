@@ -63,6 +63,24 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
         fetch(RecordsURL, params).then((response) => {
+            getAllRecords();
+            return response.json();
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+
+    const getAllRecords = () => {
+
+        const params = {
+            headers: {
+                "content-type": "application/json; charset=UTF-8"
+            },
+            method: "GET"
+        };
+
+        fetch(RecordsURL, params).then(async (response) => {
+            console.table(await response.json());
             return response.json();
         }).catch((err)=>{
             console.log(err);
